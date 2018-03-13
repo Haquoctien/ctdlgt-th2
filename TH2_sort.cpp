@@ -43,7 +43,7 @@ bool loadData(char file[], point data[], int &n)
 int* sortbyDistanceFrom(point pointData[], const int &n, const point &origin)
 {
     int *sortedIndex = new int [n];
-    for(int i = 0; i < n; sortedIndex[i] = i++);
+    for(int i = 0; i < n;sortedIndex[i] = i++);
     float *distanceData = new float[n];
     for (int i = 0; i < n; i++)
     {
@@ -59,9 +59,11 @@ int* sortbyDistanceFrom(point pointData[], const int &n, const point &origin)
                 max = j;
             }
         }
-        swap(pointData[i], pointData[max]);
+        swap(sortedIndex[i], sortedIndex[max]);
         swap(distanceData[i], distanceData[max]);
     }
+    delete[] distanceData;
+    return sortedIndex;
 }
 int main()
 {
@@ -70,10 +72,10 @@ int main()
     if(!loadData("Diem.txt", data, n))
         return 1;
     point A = {0, 0};
-    sortbyDistanceFrom(data, n, A);
+    int * sortedIndex = sortbyDistanceFrom(data, n, A);
     for (int i = 0; i < 50; i ++)
     {
-        cout << float(data[i].x) << " " << float(data[i].y) << endl;
+        cout << float(data[sortedIndex[i]].x) << " " << float(data[sortedIndex[i]].y) << endl;
     }
     return 0;
 }
